@@ -1,13 +1,38 @@
 import db
 import mensagens as msg
 
-def main():
+def gerenciar_usuarios():
     while True:
-        msg.exibir_cabecalho()
+        titulo = "USUÁRIOS"
+        msg.exibir_cabecalho(titulo)
         msg.exibir_pacientes()
         try:
             # exibe as opções disponíveis
-            opcao = int(input("O que deseja fazer?\n1 = Nova Paciente\n2 = Editar dados do Paciente\n3 = Deletar Paciente\n"))
+            opcao = int(input("O que deseja fazer?\n1 = Novo Usuário\n2 = Editar dados do Usuário\n3 = Deletar Usuário\n=> "))
+
+            # verifica qual opção o usuário escolheu
+            if opcao == 1:
+                msg.opcao_novo_ususario()
+            elif opcao == 2:
+                msg.opcao_atualizar_usuario()
+            elif opcao == 3:
+                msg.opcao_deletar_usuario()
+            else:
+                print ("Opção não reconhecida, por favor informar um número")
+                main()
+        except ValueError as e :
+            print ("Opção não reconhecida, por favor informar um número")
+        except Exception:
+            exit(0)
+
+def gerenciar_pacientes():
+    while True:
+        titulo = "PACIENTES"
+        msg.exibir_cabecalho(titulo)
+        msg.exibir_pacientes()
+        try:
+            # exibe as opções disponíveis
+            opcao = int(input("O que deseja fazer?\n1 = Nova Paciente\n2 = Editar dados do Paciente\n3 = Deletar Paciente\n4 = Voltar ao Menu Inicial\n=> "))
 
             # verifica qual opção o usuário escolheu
             if opcao == 1:
@@ -16,6 +41,58 @@ def main():
                 msg.opcao_atualizar_paciente()
             elif opcao == 3:
                 msg.opcao_deletar_paciente()
+            elif opcao == 4:
+                main()
+            else:
+                print ("Opção não reconhecida, por favor informar um número")
+                main()
+        except ValueError as e :
+            print ("Opção não reconhecida, por favor informar um número")
+        except Exception:
+            exit(0)
+
+def gerenciar_funcionarios():
+    while True:
+        titulo = "FUNCIONARIOS"
+        msg.exibir_cabecalho(titulo)
+        msg.exibir_pacientes()
+        try:
+            # exibe as opções disponíveis
+            opcao = int(input("O que deseja fazer?\n1 = Novo Funcionario\n2 = Editar dados do Funcionario\n3 = Deletar Funcionario\n=> "))
+
+            # verifica qual opção o usuário escolheu
+            if opcao == 1:
+                msg.opcao_novo_funcionario()
+            elif opcao == 2:
+                msg.opcao_atualizar_funcionario()
+            elif opcao == 3:
+                msg.opcao_deletar_funcionario()
+            else:
+                print ("Opção não reconhecida, por favor informar um número")
+                main()
+        except ValueError as e :
+            print ("Opção não reconhecida, por favor informar um número")
+        except Exception:
+            exit(0)
+
+def main():
+    while True:
+        titulo = "CLINICA ODONTO"
+        msg.exibir_cabecalho(titulo)
+
+        try:
+            # exibe as opções disponíveis
+            opcao = int(input("O que deseja gerenciar?\n1 = Usuarios\n2 = Pacientes\n3 = Funcionarios\n4 = Sair\n=> "))
+
+            # verifica qual opção o usuário escolheu
+            if opcao == 1:
+                gerenciar_usuarios()
+            elif opcao == 2:
+                gerenciar_pacientes()
+            elif opcao == 3:
+                gerenciar_funcionarios()
+            elif opcao == 4:
+                exit()
             else:
                 print ("Opção não reconhecida, por favor informar um número")    
         except ValueError as e :
@@ -24,6 +101,8 @@ def main():
             exit(0)
 
 if __name__ == "__main__":
+    db.criar_tabela_usuarios()
     db.criar_tabela_pacientes()
+    db.criar_tabela_funcionarios()
 
     main()
