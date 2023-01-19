@@ -4,7 +4,7 @@ Criação de um sistema para o gerenciamento dos pacientes de uma clínica Odont
 ## Funcionalidades básica
 - [x] **CRUD dos Pacientes.**
   - As seguintes informações devem ser registradas: Nome, CPF, Telefone, Rua, Cidade, Estado, Indicação.
-- [ ] **CRUD dos Funcionários.**
+- [x] **CRUD dos Funcionários.**
   - As seguintes informações devem ser registradas: Nome, CPF, Telefone, Rua, Cidade, Estado, Salário, Função.
-- [ ] **CRUD dos Usuários do sistema.**
+- [x] **CRUD dos Usuários do sistema.**
   - As seguintes informações devem ser registradas: Login e Senha.
