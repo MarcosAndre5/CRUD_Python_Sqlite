@@ -61,11 +61,11 @@ def atualizar_usuario(id_usuario, login, senha):
     conn.commit()
 
 # retorna a lista de pacientes cadastros
-def listar_paciente():
+def listar_usuario():
     return conn.execute("SELECT * FROM usuarios")
 
 # remove o paciente da tabela
-def deletar_paciente(id_usuario):
+def deletar_usuario(id_usuario):
     conn.execute("DELETE FROM usuarios WHERE id_usuario = ?", (id_usuario, ))
     conn.commit()
 
@@ -101,7 +101,7 @@ def deletar_paciente(id_paciente):
         Deletar
 '''
 # adiciona um novo funcionario
-def adicionar_funcionario(nome, cpf, telefone, rua, cidade, estado, indicacao):
+def adicionar_funcionario(nome, cpf, telefone, rua, cidade, estado, salario, funcao):
     conn.execute("INSERT INTO funcionarios (nome, cpf, telefone, rua, cidade, estado, salario, funcao) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (nome, cpf, telefone, rua, cidade, estado, salario, funcao, ))
     conn.commit()
 
