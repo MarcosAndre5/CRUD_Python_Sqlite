@@ -10,7 +10,8 @@ def criar_tabela_usuarios():
     conn.execute("""CREATE TABLE IF NOT EXISTS usuarios (
         id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
         login TEXT,
-        senha TEXT)"""
+        senha TEXT,
+        situacao INTEGER)"""
     )
 
 # cria a tabela 'pacientes' caso ela não exista
@@ -20,12 +21,13 @@ def criar_tabela_pacientes():
     conn.execute("""CREATE TABLE IF NOT EXISTS pacientes (
         id_paciente INTEGER PRIMARY KEY AUTOINCREMENT,
         nome TEXT,
-        cpf TEXT,
-        telefone TEXT,
+        cpf TEXT UNIQUE,
+        telefone TEXT UNIQUE,
         rua TEXT,
         cidade TEXT,
         estado TEXT,
-        indicacao TEXT)"""
+        indicacao TEXT,
+        situacao INTEGER)"""
     )
 
 # cria a tabela 'funcionarios' caso ela não exista
@@ -35,14 +37,18 @@ def criar_tabela_funcionarios():
     conn.execute("""CREATE TABLE IF NOT EXISTS funcionarios (
         id_funcionario INTEGER PRIMARY KEY AUTOINCREMENT,
         nome TEXT,
-        cpf TEXT,
-        telefone TEXT,
+        cpf TEXT UNIQUE,
+        telefone TEXT UNIQUE,
         rua TEXT,
         cidade TEXT,
         estado TEXT,
         salario REAL,
-        funcao TEXT)"""
+        funcao TEXT,
+        situacao INTEGER)"""
     )
+
+ativo = 1
+inativo = 0
 
 ''' Funções de CRUD de Usuarios:
         Adicionar
@@ -52,7 +58,7 @@ def criar_tabela_funcionarios():
 '''
 # adiciona um novo paciente
 def adicionar_usuario(login, senha):
-    conn.execute("INSERT INTO usuarios (login, senha) VALUES (?, ?)", (login, senha, ))
+    conn.execute("INSERT INTO usuarios (login, senha, situacao) VALUES (?, ?, ?)", (login, senha, ativo, ))
     conn.commit()
 
 # atualizar dados de paciente
@@ -62,11 +68,12 @@ def atualizar_usuario(id_usuario, login, senha):
 
 # retorna a lista de pacientes cadastros
 def listar_usuario():
-    return conn.execute("SELECT * FROM usuarios")
+    return conn.execute("SELECT * FROM usuarios WHERE situacao = ?", (ativo, ))
 
 # remove o paciente da tabela
 def deletar_usuario(id_usuario):
-    conn.execute("DELETE FROM usuarios WHERE id_usuario = ?", (id_usuario, ))
+    #conn.execute("DELETE FROM usuarios WHERE id_usuario = ?", (id_usuario, ))
+    conn.execute("UPDATE usuarios SET situacao = ? WHERE id_usuario = ?", (inativo, id_usuario, ))
     conn.commit()
 
 ''' Funções de CRUD de Pacientes:
@@ -77,7 +84,7 @@ def deletar_usuario(id_usuario):
 '''
 # adiciona um novo paciente
 def adicionar_paciente(nome, cpf, telefone, rua, cidade, estado, indicacao):
-    conn.execute("INSERT INTO pacientes (nome, cpf, telefone, rua, cidade, estado, indicacao) VALUES (?, ?, ?, ?, ?, ?, ?)", (nome, cpf, telefone, rua, cidade, estado, indicacao, ))
+    conn.execute("INSERT INTO pacientes (nome, cpf, telefone, rua, cidade, estado, indicacao, situacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (nome, cpf, telefone, rua, cidade, estado, indicacao, ativo, ))
     conn.commit()
 
 # atualizar dados de paciente
@@ -87,11 +94,12 @@ def atualizar_paciente(id_paciente, nome, cpf, telefone, rua, cidade, estado, in
 
 # retorna a lista de pacientes cadastros
 def listar_paciente():
-    return conn.execute("SELECT * FROM pacientes")
+    return conn.execute("SELECT * FROM pacientes WHERE situacao = ?", (ativo, ))
 
 # remove o paciente da tabela
 def deletar_paciente(id_paciente):
-    conn.execute("DELETE FROM pacientes WHERE id_paciente = ?", (id_paciente, ))
+    #conn.execute("DELETE FROM pacientes WHERE id_paciente = ?", (id_paciente, ))
+    conn.execute("UPDATE pacientes SET situacao = ? WHERE id_paciente = ?", (inativo, id_paciente, ))
     conn.commit()
 
 ''' Funções de CRUD de Funcionarios:
@@ -102,7 +110,7 @@ def deletar_paciente(id_paciente):
 '''
 # adiciona um novo funcionario
 def adicionar_funcionario(nome, cpf, telefone, rua, cidade, estado, salario, funcao):
-    conn.execute("INSERT INTO funcionarios (nome, cpf, telefone, rua, cidade, estado, salario, funcao) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (nome, cpf, telefone, rua, cidade, estado, salario, funcao, ))
+    conn.execute("INSERT INTO funcionarios (nome, cpf, telefone, rua, cidade, estado, salario, funcao, situacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", (nome, cpf, telefone, rua, cidade, estado, salario, funcao, ativo, ))
     conn.commit()
 
 # atualizar dados de funcionario
@@ -112,9 +120,10 @@ def atualizar_funcionario(id_funcionario, nome, cpf, telefone, rua, cidade, esta
 
 # retorna a lista de funcionario cadastros
 def listar_funcionario():
-    return conn.execute("SELECT * FROM funcionarios")
+    return conn.execute("SELECT * FROM funcionarios WHERE situcao = ?", (ativo, ))
 
 # remove o funcionario da tabela
 def deletar_funcionario(id_funcionario):
-    conn.execute("DELETE FROM funcionarios WHERE id_funcionario = ?", (id_funcionario, ))
+    #conn.execute("DELETE FROM funcionarios WHERE id_funcionario = ?", (id_funcionario, ))
+    conn.execute("UPDATE funcionarios SET situacao = ? WHERE id_funcionario = ?", (inativo, id_funcionario, ))
     conn.commit()

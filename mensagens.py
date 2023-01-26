@@ -41,7 +41,7 @@ def opcao_atualizar_usuario():
 
 # exibe o formulario para deletar o usuário
 def opcao_deletar_usuario():
-    id_paciente = int(input("Qual Usuário quer deletar? digite o ID => "))
+    id_usuario = int(input("Qual Usuário quer deletar? digite o ID => "))
 
     print ("Deletando Usuário -> " + str(id_usuario))
 

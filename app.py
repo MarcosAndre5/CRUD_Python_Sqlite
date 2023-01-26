@@ -22,9 +22,9 @@ def gerenciar_usuarios():
             elif opcao == 4:
                 main()
             else:
-                print ("Opção não reconhecida, por favor informar um número")
+                print("Opção não reconhecida, por favor informar um número")
         except ValueError as e :
-            print ("Opção não reconhecida, por favor informar um número")
+            print("Opção não reconhecida, por favor informar um número")
         except Exception:
             exit(0)
 
